@@ -3,6 +3,7 @@
 namespace App\Controllers;
 require 'vendor/autoload.php';
 use Bitly\BitlyClient;
+use chillerlan\QRCode\{QRCode, QROptions};
 class Home extends BaseController
 {
 	public function index(){
@@ -16,6 +17,10 @@ class Home extends BaseController
 			'longUrl' => $_POST['url']
 		];
 		$response = $bitlyClient->shorten($options);
-		return $response->data->url;
+		$qrCode = (new QRCode)->render($response->data->url);
+		echo json_encode(  [
+			"url"=>$response->data->url,
+			"qrCode"=>$qrCode
+		] );
 	}
 }

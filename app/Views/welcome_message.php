@@ -42,6 +42,7 @@
 				<div class="card d-none" id="result">
 					<div class="card-body">
 						<h1></h1>
+						<img src="" />
 					</div>
 				</div>
 			</div>
@@ -89,8 +90,10 @@
 					},
 					cache: false,
 					success: function(data){
+						let infor = JSON.parse(data)
 						$("#result").removeClass('d-none');
-						$("#result h1").html(data);
+						$("#result h1").html(infor.url);
+						$("#result img").attr("src",infor.qrCode);
 						setTimeout(function(){ 
 							$('#backDrop').modal('hide');
 						},1000);
